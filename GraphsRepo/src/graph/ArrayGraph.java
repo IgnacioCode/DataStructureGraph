@@ -11,6 +11,8 @@ public class ArrayGraph<T> implements Graph<T> {
 	
 	public ArrayGraph(Map<T,Integer> index,int[][] connections) {
 		super();
+		if(index.size() != connections.length)
+			throw new IndexOutOfBoundsException("index map has a different dimension than connections array");
 		this.index = index;
 		this.connections = connections;
 	}
@@ -18,13 +20,15 @@ public class ArrayGraph<T> implements Graph<T> {
 	
 	@Override
 	public void addNode(T name, int[][] connections) {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 
 	@Override
 	public void removeNode(T name) {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 
