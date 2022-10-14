@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class ArrayGraph<T> implements Graph<T> {
 	
-	int[][] connections;
-	Map<T,Integer> index;
+	private int[][] connections;
+	private Map<T,Integer> index;
 	
 	public ArrayGraph(Map<T,Integer> index,int[][] connections) {
 		super();
@@ -19,10 +19,29 @@ public class ArrayGraph<T> implements Graph<T> {
 	
 	
 	@Override
-	public void addNode(T name, int[][] connections) {
+	public void addNode(T name, int[] newCon, int[] otherNewCon) {
 		
+		if(newCon.length != connections.length+1)
+			throw new IndexOutOfBoundsException("newCon array has an unexpected dimension");
+		if(otherNewCon.length != connections.length)
+			throw new IndexOutOfBoundsException("otherNewCon array has an unexpected dimension");
 		
+		index.put(name, connections.length);
+		int[][] newArray = new int[connections.length+1][connections.length+1];
+
+		for (int i = 0; i < connections.length; i++) {
+			for (int j = 0; j < connections[0].length; j++) {
+				newArray[i][j] = connections[i][j];
+			}
+		}
 		
+		newArray[connections.length] = newCon;
+		
+		for (int i = 0; i < otherNewCon.length; i++) {
+			newArray[i][newArray[0].length-1] = otherNewCon[i];
+		}
+		
+		connections = newArray;
 	}
 
 	@Override
@@ -40,7 +59,8 @@ public class ArrayGraph<T> implements Graph<T> {
 	@Override
 	public int[][] calculateDijkstra(T origin) {
 		Set<T> S = new LinkedHashSet<T>();
-		Set<T> V_S = index.keySet();
+		Set<T> V_S = new LinkedHashSet<T>();
+		V_S.addAll(index.keySet());
 		int originIndex = index.get(origin);
 		
 		int[] D = new int[connections.length];
@@ -106,8 +126,9 @@ public class ArrayGraph<T> implements Graph<T> {
 	public Set<T> nodesSet() {
 		return index.keySet();
 	}
-
-	public int[][] connectionsArray() {
+	
+	@Override
+	public int[][] getConnectionArray() {
 		return connections;
 	}
 

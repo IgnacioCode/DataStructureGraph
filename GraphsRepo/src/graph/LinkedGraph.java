@@ -5,7 +5,7 @@ import java.util.Set;
 public class LinkedGraph<T> implements Graph<T> {
 
 	@Override
-	public void addNode(T name, int[][] connections) {
+	public void addNode(T name, int[] connections, int[] otherNewCon) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -36,6 +36,12 @@ public class LinkedGraph<T> implements Graph<T> {
 
 	@Override
 	public int[][] calculateDijkstra(T origin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[][] getConnectionArray() {
 		// TODO Auto-generated method stub
 		return null;
 	}
