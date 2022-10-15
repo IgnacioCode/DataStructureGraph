@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +10,11 @@ public class ArrayGraph<T> implements Graph<T> {
 	private int[][] connections;
 	private Map<T,Integer> index;
 	
+	public ArrayGraph() {
+		connections = new int[0][0];
+		index = new LinkedHashMap<T,Integer>();
+	}
+	
 	public ArrayGraph(Map<T,Integer> index,int[][] connections) {
 		super();
 		if(index.size() != connections.length)
@@ -16,7 +22,6 @@ public class ArrayGraph<T> implements Graph<T> {
 		this.index = index;
 		this.connections = connections;
 	}
-	
 	
 	@Override
 	public void addNode(T name, int[] newCon, int[] otherNewCon) {
